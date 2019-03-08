@@ -2,12 +2,12 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter 
 from . import views
 
-app_name = 'users'
+app_name = 'products'
 
 router = DefaultRouter()
 
 router.register(
   ''sudo su - postgres
-, views.CustomUserViewSet, 'users')
+, views.ProductsViewSet, 'products')
 
 urlpatterns = router.urls

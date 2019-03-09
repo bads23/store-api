@@ -6,8 +6,6 @@ app_name = 'users'
 
 router = DefaultRouter()
 
-router.register(
-  ''sudo su - postgres
-, views.CustomUserViewSet, 'users')
+router.register('', views.CustomUserViewSet, 'users')
 
 urlpatterns = router.urls

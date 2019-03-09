@@ -18,18 +18,16 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from store_api.users.views import CustomUserViewSet
 from store_api.orders.views import OrdersViewSet
-from store_api.products.views import ProductsViewSet
+from store_api.products.views import CatalogViewSet
 
 
-
-router = DefaultRouter()
-router.register('users', CustomUserViewSet)
-router.register('orders', OrdersViewSet)
-router.register('products', ProductsViewSet)
-
+api_urls = [
+    path('users/', include('store_api.users.urls', namespace='users')),
+    path('products/', include('store_api.products.urls', namespace='products')),
+    path('orders/', include('store_api.orders.urls', namespace='orders')),
+]
 
 urlpatterns = [
-    path('', include(router.urls)),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-]
+] + api_urls

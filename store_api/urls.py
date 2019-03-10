@@ -25,6 +25,7 @@ api_urls = [
     path('users/', include('store_api.users.urls', namespace='users')),
     path('products/', include('store_api.products.urls', namespace='products')),
     path('orders/', include('store_api.orders.urls', namespace='orders')),
+    path('payments/', include('store_api.payments.urls', namespace='payments')),
 ]
 
 urlpatterns = [

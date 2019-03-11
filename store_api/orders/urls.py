@@ -6,8 +6,6 @@ app_name = 'orders'
 
 router = DefaultRouter()
 
-router.register(
-  ''sudo su - postgres
-, views.OrdersViewSet, 'orders')
+router.register('', views.OrdersViewSet, 'orders')
 
 urlpatterns = router.urls

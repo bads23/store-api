@@ -16,10 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from store_api.users.views import CustomUserViewSet
-from store_api.orders.views import OrdersViewSet
-from store_api.products.views import CatalogViewSet
-
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from store_api.products.urls import urlpatterns as pr_urlpatterns
 
 api_urls = [
     path('users/', include('store_api.users.urls', namespace='users')),
@@ -31,4 +29,6 @@ api_urls = [
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-] + api_urls
+    path('api/token/', TokenObtainPairView.as_view()),
+    path('api/token/refresh/', TokenRefreshView.as_view())
+] + api_urls + pr_urlpatterns

@@ -1,8 +1,23 @@
 from rest_framework import serializers
-from .models import Products
+from .models import Catalog, Categories, Inventory
 
-class ProductsSerializer(serializers.ModelSerializer):
+class CatalogSerializer(serializers.ModelSerializer):
   
   class Meta:
-    model = Products
-    fields = ('name', 'price', 'description', 'is_active')
+    model = Catalog
+    fields = ('name', 'price', 'description', 'category',)
+
+
+
+class CategoriesSerializer(serializers.ModelSerializer):
+
+  class Meta:
+    model = Categories
+    fields = ('id','name',)
+   
+
+class InventorySerializer(serializers.ModelSerializer):
+
+  class Meta:
+    model = Inventory
+    fields = ('id','stock', 'product',)

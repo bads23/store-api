@@ -6,6 +6,7 @@ app_name = 'orders'
 
 router = DefaultRouter()
 
-router.register('', views.OrdersViewSet, 'orders')
+router.register('list', views.OrdersViewSet, 'orders')
+router.register('orderItems', views.OrderItemsViewSet, 'orderItems')
 
 urlpatterns = router.urls

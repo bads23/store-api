@@ -1,7 +1,10 @@
-from .models import Orders
-from .serializer import OrdersSerializer
+from . import models, serializer
 from rest_framework import viewsets
 
 class OrdersViewSet(viewsets.ModelViewSet):
-  queryset = Orders.objects.all()
-  serializer_class = OrdersSerializer
+  queryset = models.Orders.objects.all()
+  serializer_class = serializer.OrdersSerializer
+
+class OrderItemsViewSet(viewsets.ModelViewSet):
+  queryset = models.OrderItems.objects.all()
+  serializer_class = serializer.OrderItemsSerializer

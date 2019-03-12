@@ -16,9 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from store_api.users.views import CustomUserViewSet
-from store_api.orders.views import OrdersViewSet
-from store_api.products.views import CatalogViewSet
 
 
 api_urls = [

@@ -41,6 +41,7 @@ class CustomUser(AbstractBaseUser):
   email=models.EmailField(unique=True)
   first_name=models.CharField(max_length=30)
   last_name=models.CharField(max_length=30, blank=True)
+  phone=models.CharField(max_length=15, null=True, blank=True)
   date_created=models.DateTimeField(default=timezone.now)
   is_staff=models.BooleanField(default=False)
   is_active=models.BooleanField(default=True)

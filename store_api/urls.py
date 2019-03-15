@@ -22,4 +22,7 @@ from store_api.products.urls import urlpatterns as productPatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
+    path('users/', include('store_api.users.urls')),
+    path('orders/', include('store_api.orders.urls')),
+    path('payments/', include('store_api.payments.urls'))
 ] + productPatterns

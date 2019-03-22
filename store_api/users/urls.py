@@ -6,6 +6,7 @@ app_name = 'users'
 
 router = DefaultRouter()
 
-router.register('', views.CustomUserViewSet, 'users')
+router.register('usersList', views.CustomUserViewSet, 'users list')
+router.register('userDetails', views.UserDetailsViewSet, 'user details')
 
 urlpatterns = router.urls

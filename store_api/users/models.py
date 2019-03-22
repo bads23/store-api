@@ -36,6 +36,7 @@ class CustomUserManager(BaseUserManager):
     user.save(using=self._db)
     return user
 
+
 class CustomUser(AbstractBaseUser):
 
   email=models.EmailField(unique=True)
@@ -63,3 +64,17 @@ class CustomUser(AbstractBaseUser):
 
   def save(self, *args, **kwargs):
     super(CustomUser, self).save(*args, **kwargs)
+
+
+
+class UserDetails(models.Model):
+
+  phone=models.CharField(max_length=15, null=True)
+  city = models.CharField(max_length=30, null=True)
+  town = models.CharField(max_length=30, null=True)
+  street = models.CharField(max_length=30, null=True)
+  house_no = models.CharField(max_length=30, null=True)
+  user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+  def __str__(self):
+    return self.user

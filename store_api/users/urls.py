@@ -5,13 +5,12 @@ from . import views
 app_name = 'users'
 
 router = DefaultRouter()
-
-<<<<<<< HEAD
+router.register('usersList', views.CustomUserViewSet, 'users list')
+router.register('userDetails', views.UserDetailsViewSet, 'user details')
 router.register('users', views.CustomUserViewSet)
 users_urlpatterns = router.urls
-=======
+
 router.register('', views.CustomUserViewSet, 'users')
->>>>>>> eb5c94505d15d01ad88708ff89a0a1700616de8b
 
 urlpatterns = [
   path('', views.CustomUserViewSet, 'users')

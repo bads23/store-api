@@ -16,21 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-<<<<<<< HEAD
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from store_api.products.urls import urlpatterns as pr_urlpatterns
-=======
 from store_api.products.urls import urlpatterns as productPatterns
 
->>>>>>> eb5c94505d15d01ad88708ff89a0a1700616de8b
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-<<<<<<< HEAD
+    path('users/', include('store_api.users.urls')),
+    path('orders/', include('store_api.orders.urls')),
+    path('payments/', include('store_api.payments.urls'))
     path('api/token/', TokenObtainPairView.as_view()),
     path('api/token/refresh/', TokenRefreshView.as_view())
-] + api_urls + pr_urlpatterns
-=======
 ] + productPatterns
->>>>>>> eb5c94505d15d01ad88708ff89a0a1700616de8b
+

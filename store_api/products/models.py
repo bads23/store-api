@@ -34,3 +34,7 @@ class Inventory(models.Model):
 
     def __str__(self):
         return(self.stock)
+
+class Images(models.Model):
+    name = models.CharField(max_length=30)
+

@@ -9,6 +9,8 @@ router = DefaultRouter()
 router.register('catalog', views.CatalogViewSet, 'catalog')
 router.register('categories', views.CategoriesViewSet, 'categories')
 router.register('inventory', views.InventoryViewSet, 'inventory')
+router.register('images', views.ImagesViewSet, 'images')
+
 
 
 urlpatterns = router.urls

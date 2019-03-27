@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Catalog, Categories, Inventory
+from .models import Catalog, Categories, Inventory, Images
 
 
 class CatalogSerializer(serializers.ModelSerializer):
@@ -26,4 +26,10 @@ class InventorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Inventory
-        fields = ('id', 'stock', 'product',)
+        fields = ('id', 'stock', 'product')
+
+
+class ImagesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Images
+        fields = ('id', 'name', 'image')

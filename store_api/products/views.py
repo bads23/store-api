@@ -1,5 +1,5 @@
 from .models import Catalog, Categories, Inventory
-from .serializer import CatalogSerializer, CategoriesSerializer, InventorySerializer
+from .serializer import CatalogSerializer, CategoriesSerializer, InventorySerializer, ImagesSerializer
 from rest_framework import viewsets
 
 class CatalogViewSet(viewsets.ModelViewSet):
@@ -13,3 +13,12 @@ class CategoriesViewSet(viewsets.ModelViewSet):
 class InventoryViewSet(viewsets.ModelViewSet):
   queryset = Inventory.objects.all()
   serializer_class = InventorySerializer
+
+class ImagesViewSet(viewsets.ModelViewSet):
+    def post(self, request, format=None):
+        serializer = ImagesSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

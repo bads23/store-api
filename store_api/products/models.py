@@ -37,4 +37,5 @@ class Inventory(models.Model):
 
 class Images(models.Model):
     name = models.CharField(max_length=30)
+    image = models.ImageField(upload_to='images/%Y/%m/%d/', null=True, max_length=255)
 

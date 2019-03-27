@@ -27,10 +27,18 @@ class Catalog(models.Model):
 
 
 class Inventory(models.Model):
-    product = models.OneToOneField(Catalog, on_delete=models.PROTECT)
+    product = models.OneToOneField(Catalog, on_delete=models.PROTECT, related_name='stock')
     stock = models.IntegerField(default=0)
     date_created = models.DateTimeField(default=timezone.now)
     date_modified = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return(self.stock)
+
+class Images(models.Model):
+    catalog = models.ForeignKey(Catalog, on_delete=models.PROTECT, related_name='images')
+    path = models.FileField(null=True)
+    is_avatar = models.BooleanField(null=True)
+
+    def __str__(self):
+        return(self.path)

@@ -15,10 +15,13 @@ class InventoryViewSet(viewsets.ModelViewSet):
   serializer_class = InventorySerializer
 
 class ImagesViewSet(viewsets.ModelViewSet):
-    def post(self, request, format=None):
-        serializer = ImagesSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+  queryset = Images.objects.all()
+  serializer_class = ImagesSerializer
+
+  def post(self, request, format=None):
+    serializer = ImagesSerializer(data=request.data)
+    if serializer.is_valid():
+      serializer.save()
+      return Response(serializer.data, status=status.HTTP_201_CREATED)
+    else:
+      return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

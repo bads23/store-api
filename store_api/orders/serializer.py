@@ -10,7 +10,7 @@ class OrderItemsSerializer(serializers.ModelSerializer):
 class OrdersSerializer(serializers.ModelSerializer):
   #The name order is the related_name in the foreign key for order_items
 
-  order = OrderItemsSerializer(many=True, read_only=True)
+  order_items = OrderItemsSerializer(many=True, read_only=True)
   
   class Meta:
     model = models.Orders

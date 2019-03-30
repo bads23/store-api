@@ -36,6 +36,7 @@ class Inventory(models.Model):
         return(self.stock)
 
 class Images(models.Model):
-    name = models.CharField(max_length=30)
-    image = models.ImageField(upload_to='images/%Y/%m/%d/', null=True, max_length=255)
-
+    catalog = models.ForeignKey(Catalog, on_delete=models.PROTECT, default=0)
+    path = models.ImageField(upload_to='images/%Y/%m/%d/')
+    is_avatar = models.BooleanField(default=True)
+    

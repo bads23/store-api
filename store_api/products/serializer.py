@@ -11,7 +11,7 @@ class ImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Images 
-        fields = ('catalog', 'path', 'is_avatar',)
+        fields = ('id', 'catalog', 'path', 'is_avatar')
 
 class CatalogSerializer(serializers.ModelSerializer):
     stock = serializers.SlugRelatedField(read_only=True, slug_field='stock')

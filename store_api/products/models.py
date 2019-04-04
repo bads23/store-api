@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
-# Create your models here.
+from rest_framework.serializers import ValidationError
+
 
 
 class Categories(models.Model):
@@ -27,10 +28,34 @@ class Catalog(models.Model):
 
 
 class Inventory(models.Model):
-    product = models.OneToOneField(Catalog, on_delete=models.PROTECT)
+    product = models.OneToOneField(Catalog, on_delete=models.PROTECT, related_name='stock')
     stock = models.IntegerField(default=0)
     date_created = models.DateTimeField(default=timezone.now)
     date_modified = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return(self.stock)
+
+class Images(models.Model):
+    catalog = models.ForeignKey(Catalog, on_delete=models.PROTECT, related_name='images')
+    path = models.FileField(null=True)
+    is_avatar = models.BooleanField(null=True)
+    
+    def __str__(self):
+        return(self.path)
+
+    def validate_is_avatar(self):
+        # Check is there is an entry with is_avatar set as true
+        images=self.__class__.objects.filter(is_avatar=True)
+
+        if images.count() > 0:
+            for res in images:
+                res.is_avatar = False
+                res.save()
+                
+    def save(self, *args, **kwargs):
+        if self.is_avatar == True:
+            self.validate_is_avatar()
+            super().save(*args, **kwargs)
+        else:
+            super().save(*args, **kwargs)  

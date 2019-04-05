@@ -1,1 +1,1 @@
-web: gunicorn manage:store_api
+web: gunicorn store_api.wsgi

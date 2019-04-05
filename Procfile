@@ -1,1 +1,1 @@
-web: gunicorn run:store_api
+web: gunicorn manage:store_api

@@ -25,7 +25,9 @@ SECRET_KEY = 'cbwx-i+4-)0&4sk2sa#thh5atz4-%3bu(9=i5l*r_st17nh0b-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '192.168.0.27'
+]
 
 
 # Application definition
@@ -47,6 +49,8 @@ INSTALLED_APPS = [
     'store_api.payments',
 ]
 
+AUTH_USER_MODEL = 'users.CustomUser'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -66,7 +70,6 @@ CORS_ORIGIN_WHITELIST = (
 CORS_ORIGIN_REGEX_WHITELIST = (
     'localhost:3000',
 )
-
 
 ROOT_URLCONF = 'store_api.urls'
 
@@ -143,6 +146,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = '/opt/store/api/media/'
 MEDIA_URL = '/media/'
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 REST_FRAMEWORK = {
     # 'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),

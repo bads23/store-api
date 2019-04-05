@@ -1,12 +1,25 @@
 from rest_framework import serializers
 from .models import Catalog, Categories, Inventory, Images
 
+class InventorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Inventory
+        fields = ('stock')
+
+class ImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Images 
+        fields = ('id', 'catalog', 'path', 'is_avatar')
 
 class CatalogSerializer(serializers.ModelSerializer):
+    stock = serializers.SlugRelatedField(read_only=True, slug_field='stock')
+    images = ImagesSerializer(many=True, read_only=True)
 
     class Meta:
         model = Catalog
-        fields = ('name', 'price', 'description', 'category')
+        fields = ('name', 'price', 'description', 'category', 'stock', 'images')
 
 
 class CategoriesSerializer(serializers.ModelSerializer):
@@ -21,15 +34,3 @@ class CategoriesSerializer(serializers.ModelSerializer):
         model = Categories
         fields = ('id', 'name', 'items')
 
-
-class InventorySerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Inventory
-        fields = ('id', 'stock', 'product')
-
-
-class ImagesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Images
-        fields = ('id', 'name', 'image')

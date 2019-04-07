@@ -29,6 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '192.168.0.27',
     'localhost',
+    'polar-coast-92082.herokuapp.com'
 ]
 
 

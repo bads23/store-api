@@ -53,3 +53,4 @@ docs/_build/
 *.sql
 /venv
 /staticfiles
+/.env

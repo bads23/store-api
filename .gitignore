@@ -54,3 +54,4 @@ docs/_build/
 /venv
 /staticfiles
 /.env
+/prac.py

@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ALLOWED_HOSTS = [
     '192.168.0.27',
     'localhost',
-    'polar-coast-92082.herokuapp.com'
+    'polar-coast-92082.herokuapp.com',
 ]
 
 # Application definition

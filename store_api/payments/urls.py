@@ -7,5 +7,6 @@ app_name = 'payments'
 router=DefaultRouter()
 router.register('payments', views.PaymentViewSet, 'payments')
 router.register('payment_modes', views.PaymentModesViewSet, 'payment_modes')
+router.register('payment_notifications', views.PaymentNotificationsViewSet, 'payment_noti')
 
 urlpatterns = router.urls

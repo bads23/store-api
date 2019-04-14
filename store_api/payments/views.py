@@ -1,9 +1,12 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from django_filters import rest_framework as filters
+from rest_framework.filters import SearchFilter, OrderingFilter
 from .models import PaymentModes, Payments, PaymentNotifications
 from .serializer import PaymentModesSerializer, PaymentsSerializer, PaymentNotificationsSerializer
 from store_api.payments.at.mobile_checkout import pay, generateOrderName
+from store_api.payments.at.updatePayments import updatePayment
 import json
 
 
@@ -17,6 +20,10 @@ class PaymentViewSet(viewsets.ModelViewSet):
 
     queryset = Payments.objects.all()
     serializer_class = PaymentsSerializer
+    filter_backends = (filters.DjangoFilterBackend,
+                       SearchFilter, OrderingFilter)
+    filter_fields = ('kyc', 'status',)
+    order_fields = ('id',)
 
     def create(self, request, *args, **kwargs):
         data = request.data
@@ -50,6 +57,7 @@ class PaymentNotificationsViewSet(viewsets.ModelViewSet):
         note['kyc'] = metadata['kyc']
         note['status'] = notification['status']
         note['metadata'] = json.dumps(notification)
+        updatePayment(note)
 
         serializer = self.get_serializer(data=note)
         serializer.is_valid(raise_exception=True)

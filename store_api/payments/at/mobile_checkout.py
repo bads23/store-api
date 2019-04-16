@@ -2,16 +2,16 @@
 import os
 import africastalking
 from django.conf import settings
-from decouple import Config, RepositoryEnv
+from decouple import config, RepositoryEnv
 import string
 import random
 from datetime import datetime
 
 
 BASE_DIR = os.path.normpath(os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
-ENV_FILE = os.path.join(BASE_DIR, '.env')
-config = Config(RepositoryEnv(ENV_FILE))
+    os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))      
+# ENV_FILE = os.path.join(BASE_DIR, '.env')
+# config = Config(RepositoryEnv(ENV_FILE))
 
 # https://stackoverflow.com/questions/43570838/how-do-you-use-python-decouple-to-load-a-env-file-outside-the-expected-paths
 
@@ -25,11 +25,11 @@ def generateOrderName():
 
 
 def pay(data):
-    username = config.get('AT_USERNAME')
-    api_key = config.get('AT_API_KEY')
+    username = config('AT_USERNAME')
+    api_key = config('AT_API_KEY')
     africastalking.initialize(username, api_key)
     payments = africastalking.Payment
-    product_name = config.get('AT_PRODUCT_NAME')
+    product_name = config('AT_PRODUCT_NAME')
     phone_number = data['phone_number']
     currency_code = data['currency_code']
     amount = data['amount']

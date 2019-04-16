@@ -56,7 +56,7 @@ class PaymentNotificationsViewSet(viewsets.ModelViewSet):
         metadata = notification['metadata']
         note['kyc'] = metadata['kyc']
         note['status'] = notification['status']
-        note['metadata'] = json.dumps(notification)
+        note['metadata'] = notification['description']
         updatePayment(note)
 
         serializer = self.get_serializer(data=note)

@@ -12,11 +12,12 @@ def generateOrderName(payment_mode_id):
     new_name = '{}-{}-{}'.format(payment_mode_id, randomstr, now)
     return new_name
 
+
 class PaymentNotifications(models.Model):
-    transaction_id = models.CharField(max_length = 50, null = True)
-    kyc = models.CharField(max_length = 50)
-    status = models.CharField(max_length = 20)
-    metadata = models.CharField(max_length = 500)
+    transaction_id = models.CharField(max_length=50, null=True)
+    kyc = models.CharField(max_length=50)
+    status = models.CharField(max_length=20)
+    metadata = models.CharField(max_length=500)
 
     def __str__(self):
         return self.transaction_id
@@ -33,7 +34,7 @@ class PaymentModes(models.Model):
 
 class Payments(models.Model):
 
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, editable=False)
     payment_mode = models.ForeignKey(PaymentModes, on_delete=models.PROTECT)
     phone_number = models.CharField(max_length=20, null=True)
     amount = models.IntegerField(null=False, blank=False)

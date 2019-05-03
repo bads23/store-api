@@ -27,5 +27,6 @@ urlpatterns = [
     path('orders/', include('store_api.orders.urls')),
     path('payments/', include('store_api.payments.urls')),
     path('api/token/', TokenObtainPairView.as_view()),
-    path('api/token/refresh/', TokenRefreshView.as_view())
+    path('api/token/refresh/', TokenRefreshView.as_view()),
+    path('static/(?P.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT})
 ] + productPatterns

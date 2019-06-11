@@ -24,6 +24,7 @@ ALLOWED_HOSTS = [
     'localhost',
     'polar-coast-92082.herokuapp.com',
     '172.16.9.238',
+    'b23.pythonanywhere.com',
 ]
 
 # Application definition
@@ -104,11 +105,19 @@ WSGI_APPLICATION = 'store_api.wsgi.application'
 
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
+
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=config('DATABASE_URL')
+#     )
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

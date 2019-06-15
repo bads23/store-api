@@ -24,6 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('users/', include('store_api.users.urls')),
+    path('posts/', include('store_api.posts.urls')),
+    path('clients/', include('store_api.clients.urls')),
     path('orders/', include('store_api.orders.urls')),
     path('payments/', include('store_api.payments.urls')),
     path('api/token/', TokenObtainPairView.as_view()),

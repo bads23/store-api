@@ -52,6 +52,9 @@ docs/_build/
 /.vscode
 *.sql
 /venv
-/staticfiles
 /.env
 /prac.py
+/static
+/staticfiles
+db
+/media

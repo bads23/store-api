@@ -12,15 +12,15 @@ class Clients_category(models.Model):
         return self.name
 
 class Clients(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, null=True, blank=True)
     bio = models.TextField(max_length=1000)
-    profile_photo = models.ImageField(blank=True, upload_to='', default='')
+    profile_photo = models.CharField(max_length=200, blank=True, null=True)
     category = models.ForeignKey(Clients_category ,on_delete=models.PROTECT)
-    twitter = models.URLField()
-    facebook = models.URLField()
-    instagram = models.URLField()
-    youtube = models.URLField()
-    soundcloud = models.URLField()
+    twitter = models.CharField(max_length=50, null=True, blank=True)
+    facebook = models.CharField(max_length=50, null=True, blank=True)
+    instagram = models.CharField(max_length=50, null=True, blank=True)
+    youtube = models.CharField(max_length=50, null=True, blank=True)
+    soundcloud = models.CharField(max_length=50, null=True, blank=True)
     date_added = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

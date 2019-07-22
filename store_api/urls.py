@@ -21,6 +21,8 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from store_api.products.urls import urlpatterns as productPatterns
 
+def trigger_error(request):
+    division_by_zero = 1 / 0
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,6 +31,7 @@ urlpatterns = [
     path('orders/', include('store_api.orders.urls')),
     path('payments/', include('store_api.payments.urls')),
     path('api/token/', TokenObtainPairView.as_view()),
-    path('api/token/refresh/', TokenRefreshView.as_view())
+    path('api/token/refresh/', TokenRefreshView.as_view()),
+    path('sentry-debug/', trigger_error)
 ] + productPatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + \
     static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

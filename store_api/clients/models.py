@@ -13,7 +13,8 @@ class Clients_category(models.Model):
 
 class Clients(models.Model):
     name = models.CharField(max_length=50, null=True, blank=True)
-    bio = models.TextField(max_length=1000)
+    bio = models.TextField(max_length=5000)
+    tag = models.CharField(max_length=50, null=True, blank=True)
     profile_photo = models.CharField(max_length=200, blank=True, null=True)
     category = models.ForeignKey(Clients_category ,on_delete=models.PROTECT)
     twitter = models.CharField(max_length=50, null=True, blank=True)

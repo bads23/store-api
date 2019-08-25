@@ -8,5 +8,6 @@ router = DefaultRouter()
 
 router.register('list', views.OrdersViewSet, 'orders')
 router.register('orderItems', views.OrderItemsViewSet, 'orderItems')
+router.register('postas', views.PostasViewSet, 'postas')
 
 urlpatterns = router.urls

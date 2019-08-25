@@ -39,3 +39,11 @@ class OrderItems(models.Model):
 
     def __str(self):
         return 'Order item {} from the order {}'.format(self.order, self.product)
+
+class Postas(models.Model):
+
+    name = models.CharField(max_length=50, blank=False, null=False)
+    code = models.CharField(max_length=10, blank=False, null=False)
+
+    def __str(self):
+        return self.name

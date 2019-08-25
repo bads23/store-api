@@ -22,3 +22,9 @@ class OrdersSerializer(serializers.ModelSerializer):
     model = models.Orders
     fields = '__all__'
 
+
+class PostasSerializer(serializers.ModelSerializer):
+
+  class Meta:
+    model = models.Postas
+    fields = '__all__'

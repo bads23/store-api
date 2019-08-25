@@ -58,3 +58,4 @@ docs/_build/
 /staticfiles
 db
 /media
+*.sqlite3

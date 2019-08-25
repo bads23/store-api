@@ -34,6 +34,7 @@ class Productclass(models.Model):
 class Catalog(models.Model):
     name = models.CharField(max_length=50)
     price = models.IntegerField(null=True, blank=True)
+    weight = models.IntegerField(null=True, blank=True)
     category = models.ForeignKey(
         Categories, on_delete=models.CASCADE, related_name='items')
     subcategory = models.ForeignKey(

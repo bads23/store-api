@@ -53,7 +53,7 @@ class PaymentNotificationsViewSet(viewsets.ModelViewSet):
         notification = request.data
         note = {}
         note['transaction_id'] = notification['transactionId']
-        metadata = notification['metadata']
+        metadata = notification['requestMetadata']
         note['kyc'] = metadata['kyc']
         note['status'] = notification['status']
         note['metadata'] = notification['description']

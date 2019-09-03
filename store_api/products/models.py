@@ -44,6 +44,7 @@ class Catalog(models.Model):
         Productclass, on_delete=models.CASCADE, related_name='productclass', null=True, blank=True
     )
     description = models.TextField(null=True, blank=True)
+    features = models.TextField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     date_created = models.DateTimeField(default=timezone.now)
 

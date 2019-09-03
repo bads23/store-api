@@ -23,7 +23,7 @@ class CatalogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Catalog
-        fields = ('id', 'name', 'price', 'description', 'weight',
+        fields = ('id', 'name', 'price', 'description', 'features', 'weight',
                   'category', 'subcategory', 'productclass', 'stock', 'images')
 
 

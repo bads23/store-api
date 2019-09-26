@@ -3,7 +3,7 @@ from datetime import datetime
 from django.utils import timezone
 from store_api.products.models import Catalog
 from store_api.users.models import CustomUser
-from store_api.payments.models import Payments
+from store_api.payments.models import Payments, PaymentModes
 import string, random
 
 import uuid
@@ -14,12 +14,29 @@ def generateOrderName(user_id):
     new_name = '{}-{}-{}'.format(user_id, randomstr, now)
     return new_name
 
+class Postas(models.Model):
+
+    name = models.CharField(max_length=50, blank=False, null=False)
+    code = models.CharField(max_length=10, blank=False, null=False)
+
+    def __str__(self):
+        return self.name
+
+
+class OrderStatus(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
 class Orders(models.Model):
     name = models.CharField(max_length=50, editable=False)
     user = models.ForeignKey(CustomUser, on_delete=models.PROTECT, default=0)
-    total = models.IntegerField(default=0)
     payment = models.ForeignKey(Payments, on_delete=models.PROTECT, null=True, blank=True)
-    status = models.CharField(max_length=10, default="PENDING", null=True, blank=True)
+    delivery = models.ForeignKey(Postas, on_delete=models.PROTECT, null=True, blank=True)
+    payment_mode =  models.ForeignKey(PaymentModes, on_delete=models.PROTECT, null=True, blank=True)
+    total = models.IntegerField(null=True, blank=True)
+    status = models.ForeignKey(OrderStatus, on_delete=models.PROTECT, default=1, null=True, blank=True)
     date_added = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
@@ -37,13 +54,6 @@ class OrderItems(models.Model):
     product = models.ForeignKey(Catalog, on_delete=models.PROTECT)
     quantity = models.IntegerField(default=1)
 
-    def __str(self):
+    def __str__(self):
         return 'Order item {} from the order {}'.format(self.order, self.product)
 
-class Postas(models.Model):
-
-    name = models.CharField(max_length=50, blank=False, null=False)
-    code = models.CharField(max_length=10, blank=False, null=False)
-
-    def __str(self):
-        return self.name

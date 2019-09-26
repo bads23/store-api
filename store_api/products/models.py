@@ -66,7 +66,7 @@ class Inventory(models.Model):
 class Images(models.Model):
     catalog = models.ForeignKey(
         Catalog, on_delete=models.CASCADE, related_name='images')
-    path = models.FileField(upload_to="images/", null=True, blank=True)
+    path = models.TextField(null=True, blank=True)
     is_avatar = models.BooleanField(null=True)
 
     def __str__(self):

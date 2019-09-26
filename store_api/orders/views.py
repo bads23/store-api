@@ -21,4 +21,7 @@ class OrderItemsViewSet(viewsets.ModelViewSet):
 class PostasViewSet(viewsets.ModelViewSet):
   queryset = models.Postas.objects.all()
   serializer_class = serializer.PostasSerializer
-  
+
+class OrderStatusViewSet(viewsets.ModelViewSet):
+  queryset = models.OrderStatus.objects.all()
+  serializer_class = serializer.OrderStatusSerializer

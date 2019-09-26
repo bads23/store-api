@@ -50,8 +50,8 @@ class Orders(models.Model):
 
 class OrderItems(models.Model):
 
-    order = models.ForeignKey(Orders, on_delete=models.CASCADE , related_name='order_items')
-    product = models.ForeignKey(Catalog, on_delete=models.PROTECT)
+    order = models.ForeignKey(Orders, on_delete=models.CASCADE , related_name='order_items', null=True, blank=True)
+    product = models.ForeignKey(Catalog, on_delete=models.PROTECT, null=True, blank=True)
     quantity = models.IntegerField(default=1)
 
     def __str__(self):

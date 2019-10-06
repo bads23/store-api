@@ -1,10 +1,16 @@
 from . import models, serializer
 from rest_framework import viewsets, status
 from rest_framework.response import Response
+from django_filters import rest_framework as filters
+from rest_framework.filters import SearchFilter, OrderingFilter
 
 class OrdersViewSet(viewsets.ModelViewSet):
   queryset = models.Orders.objects.all()
   serializer_class = serializer.OrdersSerializer
+  filter_backends = (filters.DjangoFilterBackend,
+                       SearchFilter, OrderingFilter)
+  filter_fields = ('user', 'status', )
+  order_fields = ("date_added",)
   
 
 class OrderItemsViewSet(viewsets.ModelViewSet):

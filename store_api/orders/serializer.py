@@ -10,13 +10,16 @@ class OrderItemsSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = models.OrderItems
-    fields = ['order', 'quantity', 'name', 'price']
-  
+    # fields = ['order', 'quantity', 'name', 'price']
+    fields ='__all__'
 
 class OrdersSerializer(serializers.ModelSerializer):
   #The name order is the related_name in the foreign key for order_items
   order_items = OrderItemsSerializer(many=True, read_only=True) 
-
+  user_email = serializers.CharField(source='user.email', read_only=True)
+  pickup = serializers.CharField(source='delivery', read_only=True)
+  mode = serializers.CharField(source='payment_mode', read_only=True)
+  pay_status = serializers.CharField(source='status', read_only=True) 
   class Meta:
     model = models.Orders
     fields = '__all__'

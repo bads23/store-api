@@ -14,7 +14,7 @@ class Clients(models.Model):
     bio = models.TextField(max_length=5000)
     tag = models.CharField(max_length=50, null=True, blank=True)
     profile_photo = models.CharField(max_length=200, blank=True, null=True)
-    category = models.ForeignKey(Clients_category ,on_delete=models.PROTECT)
+    category = models.ForeignKey(Clients_category, on_delete=models.PROTECT, null=True, blank=True)
     twitter = models.CharField(max_length=50, null=True, blank=True)
     facebook = models.CharField(max_length=50, null=True, blank=True)
     instagram = models.CharField(max_length=50, null=True, blank=True)

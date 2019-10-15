@@ -3,10 +3,10 @@ from django.utils import timezone
 
 # Create your models here.
 class News(models.Model):
-    Title = models.CharField(max_length=50)
-    Subtitle = models.CharField(max_length=50)
-    Content = models.TextField(max_length=1000)
-    Cover_Image = models.ImageField(blank=True, upload_to='', default='')
+    Title = models.CharField(max_length=500)
+    Subtitle = models.CharField(max_length=500)
+    Content = models.TextField(max_length=10000)
+    Cover_Image = models.CharField(max_length=500, blank=True, null=True)
     date_added = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

@@ -4,7 +4,7 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from django.contrib.auth.hashers import make_password
 from rest_framework.response import Response
-
+from .mailor import send_email
 
 class CustomUserViewSet(viewsets.ModelViewSet):
     queryset = models.CustomUser.objects.all()

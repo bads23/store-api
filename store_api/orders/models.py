@@ -5,7 +5,7 @@ from store_api.products.models import Catalog
 from store_api.users.models import CustomUser
 from store_api.payments.models import Payments, PaymentModes
 import string, random
-
+from .mailor import send_email
 import uuid
 
 def generateOrderName(user_id):
@@ -43,6 +43,7 @@ class Orders(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
+        send_email(self.user.email, self.user.first_name)
         if(self.name == ''):
             self.name = generateOrderName(self.user.id)
         super(Orders, self).save(*args, **kwargs)

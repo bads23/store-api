@@ -5,7 +5,6 @@ from store_api.products.models import Catalog
 from store_api.users.models import CustomUser
 from store_api.payments.models import Payments, PaymentModes
 import string, random
-from .mailor import send_email
 import uuid
 
 def generateOrderName(user_id):
@@ -43,7 +42,6 @@ class Orders(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        send_email(self.user.email, self.user.first_name)
         if(self.name == ''):
             self.name = generateOrderName(self.user.id)
         super(Orders, self).save(*args, **kwargs)
@@ -54,6 +52,8 @@ class OrderItems(models.Model):
     order = models.ForeignKey(Orders, on_delete=models.CASCADE , related_name='order_items', null=True, blank=True)
     product = models.ForeignKey(Catalog, on_delete=models.PROTECT, null=True, blank=True)
     quantity = models.IntegerField(default=1)
+    buying_price = models.IntegerField(default=1)
+    delivery_fee = models.IntegerField(null=True, blank=True, default=1)
 
     def __str__(self):
         return 'Order item {} from the order {}'.format(self.order, self.product)

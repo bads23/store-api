@@ -3,8 +3,18 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
 from rest_framework.filters import SearchFilter, OrderingFilter
-from .helpers import GatherStats
+from .helpers import GatherStats, ItemsSold
 from rest_framework import mixins
+
+
+
+
+class ItemsSoldViews(viewsets.ViewSet):
+
+  def list(self, request):
+    return Response(ItemsSold())
+
+
 
 class OrderStats(viewsets.ViewSet):
   

@@ -10,5 +10,6 @@ router.register('list', views.OrdersViewSet, 'orders')
 router.register('orderItems', views.OrderItemsViewSet, 'orderItems')
 router.register('postas', views.PostasViewSet, 'postas')
 router.register('status', views.OrderStatusViewSet, 'status')
+router.register('stats', views.OrderStats, 'stats')
 
 urlpatterns = router.urls

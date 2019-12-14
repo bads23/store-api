@@ -9,3 +9,13 @@ class NewsViewSet(viewsets.ModelViewSet):
 class EventsViewSet(viewsets.ModelViewSet):
   queryset = models.Events.objects.all()
   serializer_class = serializer.EventsSerializer
+
+
+class EventsviewsViewSet(viewsets.ModelViewSet):
+  queryset = models.EventsViews.objects.all()
+  serializer_class = serializer.EventsviewsSerializer
+
+
+class PostviewsViewSet(viewsets.ModelViewSet):
+  queryset = models.PostViews.objects.all()
+  serializer_class = serializer.PostviewsSerializer

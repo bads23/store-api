@@ -57,3 +57,18 @@ class UserDetails(models.Model):
 
   def __str__(self):
     return self.user
+
+
+class Visitors(models.Model):
+
+  ip = models.CharField(max_length=30, null=True)
+  browser = models.CharField(max_length=30)
+  location = models.CharField(max_length=100, null=True)
+  date_added = models.DateTimeField(default=timezone.now)
+
+  def __str__(self):
+    
+    self.ip if self.ip else 'N/A'
+    self.location if self.location else 'N/A'
+
+    return '{},{} @ {}'.format(self.ip, self.browser, self.location)

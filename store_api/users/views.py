@@ -29,3 +29,7 @@ class CustomUserViewSet(viewsets.ModelViewSet):
 class UserDetailsViewSet(viewsets.ModelViewSet):
     queryset = models.UserDetails.objects.all()
     serializer_class = serializer.UserDetailsSerializer
+
+class VisitorsViewSet(viewsets.ModelViewSet):
+    queryset = models.Visitors.objects.all()
+    serializer_class = serializer.VisitorsSerializer

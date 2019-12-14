@@ -11,4 +11,10 @@ class UserDetailsSerializer(serializers.ModelSerializer):
   
   class Meta:
     model = models.UserDetails
-    fields = '__all__'    
+    fields = '__all__'
+
+class VisitorsSerializer(serializers.ModelSerializer):
+  
+  class Meta:
+    model = models.Visitors
+    fields = '__all__'

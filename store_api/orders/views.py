@@ -7,13 +7,10 @@ from .helpers import GatherStats, ItemsSold
 from rest_framework import mixins
 
 
-
-
 class ItemsSoldViews(viewsets.ViewSet):
 
   def list(self, request):
     return Response(ItemsSold())
-
 
 
 class OrderStats(viewsets.ViewSet):
@@ -46,7 +43,6 @@ class OrderItemsViewSet(viewsets.ModelViewSet):
 class PostasViewSet(viewsets.ModelViewSet):
   queryset = models.Postas.objects.all()
   serializer_class = serializer.PostasSerializer
-
 
 
 class OrderStatusViewSet(viewsets.ModelViewSet):

@@ -4,7 +4,6 @@ from django.utils import timezone
 import datetime, json
 
 
-
 def ItemsSold():
 # Stats for total items sold and pieces per item sold
 
@@ -40,14 +39,20 @@ def ItemsSold():
 
 def GatherStats(request):
     # Gathers Statistics aboout orders made
-    last_week = timezone.now() - timezone.timedelta(days=60)
+    days = int(request.query_params['days'])
+    last_week = timezone.now() - timezone.timedelta(days=days)
     queryset = models.Orders.objects.filter(date_added__range=[last_week, timezone.now()]).order_by('date_added').values('id','name','status','total','date_added')
 
     items = {}
     objs = []
+    
+    for x in range(days):
+        d = (timezone.now() - timezone.timedelta(days=x))
+        d_str = '{0:%d} {0:%b}'.format(d)
+        items[d_str] = []
 
     for res in queryset:
-        d = str(res['date_added'].date())
+        d = '{0:%d} {0:%b}'.format(res['date_added'])
         if d not in items:
             items[d] = []
             res['date_added'] = d
@@ -67,4 +72,6 @@ def GatherStats(request):
 
         objs.append(obj)
     
-    return objs
+
+
+    return reversed(objs)

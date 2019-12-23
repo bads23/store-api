@@ -61,9 +61,10 @@ class UserDetails(models.Model):
 
 class Visitors(models.Model):
 
-  ip = models.CharField(max_length=30, null=True)
-  browser = models.CharField(max_length=30)
-  location = models.CharField(max_length=100, null=True)
+  ip = models.CharField(max_length=30, null=True, blank=True)
+  browser = models.CharField(max_length=30, blank=True)
+  location = models.CharField(max_length=100, null=True, blank=True)
+  os = models.CharField(max_length=500, null=True, blank=True)
   date_added = models.DateTimeField(default=timezone.now)
 
   def __str__(self):

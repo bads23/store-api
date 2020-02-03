@@ -7,6 +7,8 @@ from store_api.payments.models import Payments, PaymentModes
 import string, random
 import uuid
 
+from .mailor import send_email
+
 def generateOrderName(user_id):
     randomstr = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
     now = datetime.now().strftime("%d%m%y")
@@ -44,6 +46,7 @@ class Orders(models.Model):
     def save(self, *args, **kwargs):
         if(self.name == ''):
             self.name = generateOrderName(self.user.id)
+            send_email(self.user.email, self.user.first_name)
         super(Orders, self).save(*args, **kwargs)
 
 

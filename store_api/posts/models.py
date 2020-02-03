@@ -16,9 +16,10 @@ class News(models.Model):
 class Events(models.Model):
     Title = models.CharField(max_length=100)
     Venue = models.CharField(max_length=50)
-    Date = models.DateField()
+    Date = models.DateField(null=True, blank=True)
     content = models.CharField(max_length=100)
-    tickets_link = models.URLField(max_length=50)
+    cover_image = models.CharField(max_length=100, blank=True, null=True)
+    tickets_link = models.URLField(max_length=50, null=True, blank=True)
     date_added = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

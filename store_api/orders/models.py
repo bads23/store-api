@@ -46,7 +46,6 @@ class Orders(models.Model):
     def save(self, *args, **kwargs):
         if(self.name == ''):
             self.name = generateOrderName(self.user.id)
-            # send_email(self.user.email, self.user.first_name)
         super(Orders, self).save(*args, **kwargs)
 
 

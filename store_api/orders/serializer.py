@@ -16,10 +16,9 @@ class OrdersSerializer(serializers.ModelSerializer):
   user_email = serializers.CharField(source='user.email', read_only=True)
   user_fname = serializers.CharField(source='user.first_name', read_only=True)
   user_lname = serializers.CharField(source='user.last_name', read_only=True)
-  delivery = serializers.CharField(source='delivery.name', read_only=True)
+  posta = serializers.CharField(source='delivery.name', read_only=True)
   # payment_mode = serializers.CharField(source='payment_mode', read_only=True)
   pay_status = serializers.CharField(source='status', read_only=True)
-  amount = serializers.IntegerField(source='payment.amount', read_only=True)
   status = serializers.CharField(source='status.name', read_only=True)
   class Meta:
     model = models.Orders

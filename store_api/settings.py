@@ -15,16 +15,15 @@ import django_heroku
 import dj_database_url
 from decouple import config
 from datetime import timedelta
+from decouple import Config, RepositoryEnv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+ENV_FILE = os.path.join(BASE_DIR, '.env')
+config = Config(RepositoryEnv(ENV_FILE))
 
 ALLOWED_HOSTS = [
-    '192.168.0.18',
     'localhost',
-    'polar-coast-92082.herokuapp.com',
-    '172.16.9.238',
     'b23.pythonanywhere.com',
 ]
 
@@ -82,6 +81,13 @@ CORS_ORIGIN_WHITELIST = (
 CORS_ORIGIN_REGEX_WHITELIST = (
     'localhost:3000',
 )
+
+EMAIL_HOST = config('SMTP_SERVER')
+EMAIL_HOST_USER = config('SENDER_EMAIL')
+EMAIL_HOST_PASSWORD = config('EMAIL_PASS')
+EMAIL_PORT = config('SMTP_PORT')
+EMAIL_USE_TLS = True
+
 
 ROOT_URLCONF = 'store_api.urls'
 
@@ -184,7 +190,3 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=7),
-}

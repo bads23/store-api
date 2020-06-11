@@ -3,7 +3,6 @@
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
-
 def send_contact_form(req):
     subject = req["subject"]
     message = req["message"]
@@ -19,6 +18,7 @@ def send_contact_form(req):
         msg.attach_alternative(html, 'text/html')
         msg.send()
         return True
+        
     except Exception as e:
         print(e)
         return False

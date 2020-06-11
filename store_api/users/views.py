@@ -4,7 +4,7 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action, api_view
 from django.contrib.auth.hashers import make_password
 from rest_framework.response import Response
-from .mailor import send_order_email, send_contact_form
+from .mailor import send_contact_form
 from .helpers import VisitorStats
 
 class CustomUserViewSet(viewsets.ModelViewSet):

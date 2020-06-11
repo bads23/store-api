@@ -5,18 +5,16 @@ from django_filters import rest_framework as filters
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .helpers import GatherStats, ItemsSold
 from rest_framework import mixins
-
+from .mailor import send_order_email
 
 class ItemsSoldViews(viewsets.ViewSet):
-
   def list(self, request):
     return Response(ItemsSold())
 
 
 class OrderStats(viewsets.ViewSet):
-  
-  def list(self, request):
-    return Response(GatherStats(request))
+    def list(self, request):
+      return Response(GatherStats(request))
 
 
 class OrdersViewSet(viewsets.ModelViewSet):
@@ -49,3 +47,15 @@ class PostasViewSet(viewsets.ModelViewSet):
 class OrderStatusViewSet(viewsets.ModelViewSet):
   queryset = models.OrderStatus.objects.all()
   serializer_class = serializer.OrderStatusSerializer
+
+
+class SendEmailView(viewsets.ViewSet):
+
+  def create(self, request):
+    data = {}
+    if(send_order_email(request.data) == True):
+      data['message'] = 'Message sent!'
+      return Response(data, status=status.HTTP_200_OK)
+    else:
+      data['message'] = 'Message Not Sent! Try again later.'
+      return Response(data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

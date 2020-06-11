@@ -3,8 +3,14 @@ from . import models
 
 
 class OrderItemsSerializer(serializers.ModelSerializer):
+  def __init__(self, *args, **kwargs):
+    many = kwargs.pop('many', True)
+    super(OrderItemsSerializer, self).__init__(many=many, *args, **kwargs)
+
   name = serializers.CharField(source='product.name', read_only=True)
   price = serializers.IntegerField(source='product.price', read_only=True)
+
+
   class Meta:
     model = models.OrderItems
     fields ='__all__'

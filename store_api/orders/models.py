@@ -7,8 +7,6 @@ from store_api.payments.models import Payments, PaymentModes
 import string, random
 import uuid
 
-from .mailor import send_email
-
 def generateOrderName(user_id):
     randomstr = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
     now = datetime.now().strftime("%d%m%y")

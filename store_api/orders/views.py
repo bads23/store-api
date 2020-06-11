@@ -25,7 +25,7 @@ class OrdersViewSet(viewsets.ModelViewSet):
   filter_backends = (filters.DjangoFilterBackend,
                        SearchFilter, OrderingFilter)
   filter_fields = ('user', 'status', )
-  order_fields = ("date_added",)
+  order_fields = ("date_added",)  
 
 
 class OrderItemsViewSet(viewsets.ModelViewSet):

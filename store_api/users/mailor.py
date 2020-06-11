@@ -1,27 +1,24 @@
-#!/usr/bin/env python
+# https://stackoverflow.com/questions/2809547/creating-email-templates-with-django
 
-import os
-import smtplib, ssl
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-
-from django.conf import settings
-from django.core.mail import send_mail
-from decouple import Config, RepositoryEnv
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 
 
-BASE_DIR = os.path.normpath(os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "..", ".."))      
-ENV_FILE = os.path.join(BASE_DIR, '.env')
-config = Config(RepositoryEnv(ENV_FILE))
+def send_contact_form(req):
+    subject = req["subject"]
+    message = req["message"]
+    name = req["name"]
+    email = req["email"]
 
+    html = render_to_string('contact_form.html', {"subject": subject, "name": name, "email": email, "message": message})
+    to = ['stevekaruma@gmail.com']
+    sender = 'motiontafrica@gmail.com'
 
-def send_email(email):
-    send_mail(
-        'Subject here',
-        'Here is the message.',
-        'motiontafrica@gmail.com',
-        ['stevekaruma@gmail.com'],
-        fail_silently=False,
-    )
-
+    try:
+        msg = EmailMultiAlternatives(subject, message, sender, to)
+        msg.attach_alternative(html, 'text/html')
+        msg.send()
+        return True
+    except Exception as e:
+        print(e)
+        return False

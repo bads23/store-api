@@ -1,10 +1,10 @@
 from . import models
 from . import serializer
 from rest_framework import viewsets, status
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view
 from django.contrib.auth.hashers import make_password
 from rest_framework.response import Response
-from .mailor import send_email
+from .mailor import send_order_email, send_contact_form
 from .helpers import VisitorStats
 
 class CustomUserViewSet(viewsets.ModelViewSet):
@@ -36,6 +36,17 @@ class VisitorsViewSet(viewsets.ModelViewSet):
     serializer_class = serializer.VisitorsSerializer
 
 class VisitorStatsViewSet(viewsets.ViewSet):
-    
     def list(self, request):
         return Response(VisitorStats())
+
+
+class ContactFormViewSet(viewsets.ViewSet):
+
+    def create(self, request):
+        data = {}
+        if(send_contact_form(request.data) == True):
+            data['message'] = 'Message sent!'
+            return Response(data, status=status.HTTP_200_OK)
+        else:
+            data['message'] = 'Message Not Sent! Try again later.'
+            return Response(data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

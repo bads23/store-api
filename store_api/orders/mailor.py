@@ -1,41 +1,29 @@
-#!/usr/bin/env python
+# https://stackoverflow.com/questions/2809547/creating-email-templates-with-django
 
-import os
-import smtplib, ssl
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string      
+from .models import Orders, OrderItems
 
-from django.conf import settings
-from decouple import Config, RepositoryEnv
+def send_order_email(req):
+    order = Orders.objects.get(id=req['order'])
+    order_items = OrderItems.objects.filter(order=req['order']) 
 
+    delivery_fee = 0
+    for res in order_items:
+        delivery_fee += res.delivery_fee 
 
-BASE_DIR = os.path.normpath(os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "..", ".."))      
-ENV_FILE = os.path.join(BASE_DIR, '.env')
-config = Config(RepositoryEnv(ENV_FILE))
+    subject = "Order Received!"
+    text = "Your Order has been recieved!"
+    html = render_to_string('order_email_admin.html', {"order":order, "order_items":order_items, "delFee": delivery_fee})
+    sender = 'motiontafrica@gmail.com'
+    to = ['stevekaruma@gmail.com']
 
-
-def send_email(email, fName):
-    smtp_server = config('SMTP_SERVER')
-    port = config('SMTP_PORT')
-    sender_email = config('SENDER_EMAIL')
-    password = config('EMAIL_PASS')
-    receiver_email = email
-    text = "Hi {}, Your order on the Motion Talent Africa Online store has been confirmed.".format(fName)
-    
-    message = MIMEMultipart("alternative")
-    message["Subject"] = "Order Confirmed!"
-    message["From"] = sender_email
-    message["To"] = receiver_email
-
-    part1 = MIMEText(text, "plain")
-    message.attach(part1)
-
-
-    # Create a secure SSL context
-    context = ssl.create_default_context()
-
-    with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
-        server.login(sender_email, password)
-        server.sendmail(sender_email, receiver_email, message.as_string() )
-
+    try:
+        msg = EmailMultiAlternatives(subject, text, sender, to)
+        msg.attach_alternative(html, 'text/html')
+        msg.send()
+        
+    except Exception as e:
+        print(e)
+        return False
+   

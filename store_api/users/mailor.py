@@ -10,8 +10,8 @@ def send_contact_form(req):
     email = req["email"]
 
     html = render_to_string('contact_form.html', {"subject": subject, "name": name, "email": email, "message": message})
-    to = ['stevekaruma@gmail.com']
-    sender = 'motiontafrica@gmail.com'
+    to = ['stevekaruma@gmail.com', 'info@motiontalentafrica.co.ke']
+    sender = 'motiont@gmail.com'
 
     try:
         msg = EmailMultiAlternatives(subject, message, sender, to)

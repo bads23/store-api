@@ -9,7 +9,13 @@ class ClientsCategorySerializer(serializers.ModelSerializer):
 
 class ClientsSerializer(serializers.ModelSerializer):
 
-  # category = serializers.SlugRelatedField(read_only=True, slug_field='category')
   class Meta:
     model = models.Clients
+    fields = '__all__'
+
+
+class AboutSerializer(serializers.ModelSerializer):
+
+  class Meta:
+    model = models.About
     fields = '__all__'

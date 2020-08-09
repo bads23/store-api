@@ -31,6 +31,7 @@ urlpatterns = [
     path('orders/', include('store_api.orders.urls')),
     path('payments/', include('store_api.payments.urls')),
     path('api/token/', TokenObtainPairView.as_view()),
-    path('api/token/refresh/', TokenRefreshView.as_view())
+    path('api/token/refresh/', TokenRefreshView.as_view()),
+    path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
 ] + productPatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + \
     static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

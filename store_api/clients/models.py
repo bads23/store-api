@@ -24,3 +24,16 @@ class Clients(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class About(models.Model):
+    '''
+        I can't be arsed to create another django app just for this model.
+        These fields hold info to be displayed on the about page.
+    '''
+
+    about = models.CharField(max_length=2000, null=True, blank=True)
+    target = models.CharField(max_length=2000, null=True, blank=True)
+    vision = models.CharField(max_length=2000, null=True, blank=True)
+    mission = models.CharField(max_length=2000, null=True, blank=True)
+    identity = models.CharField(max_length=2000, null=True, blank=True)

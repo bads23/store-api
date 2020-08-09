@@ -53,7 +53,7 @@ class SendEmailView(viewsets.ViewSet):
 
   def create(self, request):
     data = {}
-    if(send_order_email(request.data) == True):
+    if(send_order_email(request.data) != False):
       data['message'] = 'Message sent!'
       return Response(data, status=status.HTTP_200_OK)
     else:

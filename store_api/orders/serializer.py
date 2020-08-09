@@ -25,7 +25,7 @@ class OrdersSerializer(serializers.ModelSerializer):
   posta = serializers.CharField(source='delivery.name', read_only=True)
   # payment_mode = serializers.CharField(source='payment_mode', read_only=True)
   pay_status = serializers.CharField(source='status', read_only=True)
-  status = serializers.CharField(source='status.name', read_only=True)
+  status_name = serializers.CharField(source='status.name', read_only=True)
   class Meta:
     model = models.Orders
     fields = '__all__'

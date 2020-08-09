@@ -8,3 +8,7 @@ class ClientsViewSet(viewsets.ModelViewSet):
 class ClientsCategoryViewSet(viewsets.ModelViewSet):
   queryset = models.Clients_category.objects.all()
   serializer_class = serializer.ClientsCategorySerializer
+
+class AboutViewSet(viewsets.ModelViewSet):
+  queryset = models.About.objects.all()
+  serializer_class = serializer.AboutSerializer

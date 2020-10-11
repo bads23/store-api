@@ -85,12 +85,12 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     context = {
         'first_name': reset_password_token.user.first_name,
         'email': reset_password_token.user.email,
-        'reset_password_url': "https://store.motiontalentafrica.co.ke/?token={}".format(reset_password_token.key)
+        'reset_password_url': "https://store.motiontalentafrica.co.ke/resetpassword/?token={}".format(reset_password_token.key)
     }
 
     # render email text
     email_html_message = render_to_string('reset_pass_email.html', context)
-    email_plaintext_message = 'Use this link to reset password. http://localhost:4000/resetpassword/{} \n If you did not request a password reset, ignore this email. \n \n Warmest Regards, \n The Motion Talent Africa Team.'.format(reset_password_token.key)
+    email_plaintext_message = 'Use this link to reset password. https://store.motiontalentafrica.co.ke/resetpassword/{} \n If you did not request a password reset, ignore this email. \n \n Warmest Regards, \n The Motion Talent Africa Team.'.format(reset_password_token.key)
 
     msg = EmailMultiAlternatives(
         # title:

@@ -2,19 +2,22 @@
 
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string      
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from .models import Orders, OrderItems
 from store_api.users.models import CustomUser
+from store_api.posts.models import News
 import time
 
 
 from django_rest_passwordreset.signals import reset_password_token_created
 
-def send_order_email(req):
-    time.sleep(60)
-    order = Orders.objects.get(id=req['order'])
-    order_items = OrderItems.objects.filter(order=req['order'])
+@receiver(post_save, sender=Orders)
+def send_order_email(sender, instance, **kwargs):
+    time.sleep(30)
+    order = Orders.objects.get(id=instance.id)
+    order_items = OrderItems.objects.filter(order=instance.id)
 
     delivery_fee = 0
     total = 0
@@ -28,7 +31,7 @@ def send_order_email(req):
     text = "New Order has been recieved!"
     html = render_to_string('order_email_admin.html', {"order":order, "order_items":order_items, "delFee": delivery_fee, "total": total})
     sender = 'motiontafrica@gmail.com'
-    to = ['stevekaruma@gmail.com']
+    to = ['stevekaruma@gmail.com', 'info@motiontalentafrica.co.ke', 'motiontafrica@gmail.com',]
 
     try:
         msg = EmailMultiAlternatives(subject, text, sender, to)
@@ -39,12 +42,12 @@ def send_order_email(req):
         print(e)
         return False
 
-
-def send_confirm_email(req):
-    time.sleep(10)
-    order = Orders.objects.get(id=req['order'])
-    order_items = OrderItems.objects.filter(order=req['order'])
-    user = CustomUser.objects.get(id=req['user'])
+@receiver(post_save, sender=Orders)
+def send_confirm_email(sender, instance, **kwargs):
+    time.sleep(30)
+    order = Orders.objects.get(id=instance.id)
+    order_items = OrderItems.objects.filter(order=instance.id)
+    user = CustomUser.objects.get(id=instance.user)
 
     delivery_fee = 0
     total = 0
@@ -58,7 +61,7 @@ def send_confirm_email(req):
     text = "Your Order has been recieved!"
     html = render_to_string('order_email_users.html', {"order":order, "order_items":order_items, "delFee": delivery_fee, "total": total, "user":user})
     sender = 'motiontafrica@gmail.com'
-    to = ['stevekaruma@gmail.com']
+    to = ['stevekaruma@gmail.com', user.email]
 
     try:
         msg = EmailMultiAlternatives(subject, text, sender, to)
@@ -104,3 +107,7 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     )
     msg.attach_alternative(email_html_message, "text/html")
     msg.send()
+
+@receiver(post_save, sender=News)
+def signals_test(sender, instance, **kwargs):
+    print(instance.id)

@@ -1,7 +1,7 @@
 # https://stackoverflow.com/questions/2809547/creating-email-templates-with-django
 
 from django.core.mail import EmailMultiAlternatives
-from django.template.loader import render_to_string      
+from django.template.loader import render_to_string
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
@@ -13,11 +13,11 @@ import time
 
 from django_rest_passwordreset.signals import reset_password_token_created
 
-@receiver(post_save, sender=Orders)
-def send_order_email(sender, instance, **kwargs):
+
+def send_order_email(req, **kwargs):
     time.sleep(30)
-    order = Orders.objects.get(id=instance.id)
-    order_items = OrderItems.objects.filter(order=instance.id)
+    order = Orders.objects.get(id=req['orderid'])
+    order_items = OrderItems.objects.filter(order=req['orderid'])
 
     delivery_fee = 0
     total = 0
@@ -26,28 +26,29 @@ def send_order_email(sender, instance, **kwargs):
         delivery_fee += res.delivery_fee
         total += res.delivery_fee + res.product.price
 
-
     subject = "Order Received!"
     text = "New Order has been recieved!"
-    html = render_to_string('order_email_admin.html', {"order":order, "order_items":order_items, "delFee": delivery_fee, "total": total})
+    html = render_to_string('order_email_admin.html', {
+                            "order": order, "order_items": order_items, "delFee": delivery_fee, "total": total})
     sender = 'motiontafrica@gmail.com'
-    to = ['stevekaruma@gmail.com', 'info@motiontalentafrica.co.ke', 'motiontafrica@gmail.com',]
+    to = ['stevekaruma@gmail.com', 'info@motiontalentafrica.co.ke',
+          'motiontafrica@gmail.com', ]
 
     try:
         msg = EmailMultiAlternatives(subject, text, sender, to)
         msg.attach_alternative(html, 'text/html')
         msg.send()
-        
+
     except Exception as e:
         print(e)
         return False
 
-@receiver(post_save, sender=Orders)
-def send_confirm_email(sender, instance, **kwargs):
+
+def send_confirm_email(req, **kwargs):
     time.sleep(30)
-    order = Orders.objects.get(id=instance.id)
-    order_items = OrderItems.objects.filter(order=instance.id)
-    user = CustomUser.objects.get(id=instance.user)
+    order = Orders.objects.get(id=req['orderid'])
+    order_items = OrderItems.objects.filter(order=req['orderid'])
+    user = CustomUser.objects.get(id=order.user.id)
 
     delivery_fee = 0
     total = 0
@@ -56,10 +57,10 @@ def send_confirm_email(sender, instance, **kwargs):
         delivery_fee += res.delivery_fee
         total += res.delivery_fee + res.product.price
 
-
     subject = "Order Received!"
     text = "Your Order has been recieved!"
-    html = render_to_string('order_email_users.html', {"order":order, "order_items":order_items, "delFee": delivery_fee, "total": total, "user":user})
+    html = render_to_string('order_email_users.html', {
+                            "order": order, "order_items": order_items, "delFee": delivery_fee, "total": total, "user": user})
     sender = 'motiontafrica@gmail.com'
     to = ['stevekaruma@gmail.com', user.email]
 
@@ -67,10 +68,11 @@ def send_confirm_email(sender, instance, **kwargs):
         msg = EmailMultiAlternatives(subject, text, sender, to)
         msg.attach_alternative(html, 'text/html')
         msg.send()
-        
+
     except Exception as e:
         print(e)
         return False
+
 
 @receiver(reset_password_token_created)
 def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
@@ -93,11 +95,13 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
 
     # render email text
     email_html_message = render_to_string('reset_pass_email.html', context)
-    email_plaintext_message = 'Use this link to reset password. https://store.motiontalentafrica.co.ke/resetpassword/{} \n If you did not request a password reset, ignore this email. \n \n Warmest Regards, \n The Motion Talent Africa Team.'.format(reset_password_token.key)
+    email_plaintext_message = 'Use this link to reset password. https://store.motiontalentafrica.co.ke/resetpassword/{} \n If you did not request a password reset, ignore this email. \n \n Warmest Regards, \n The Motion Talent Africa Team.'.format(
+        reset_password_token.key)
 
     msg = EmailMultiAlternatives(
         # title:
-        "Password Reset for {title}".format(title="Motion Talent Africa Store"),
+        "Password Reset for {title}".format(
+            title="Motion Talent Africa Store"),
         # message:
         email_plaintext_message,
         # from:
@@ -107,6 +111,7 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     )
     msg.attach_alternative(email_html_message, "text/html")
     msg.send()
+
 
 @receiver(post_save, sender=News)
 def signals_test(sender, instance, **kwargs):

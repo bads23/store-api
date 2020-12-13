@@ -9,12 +9,14 @@ class Clients_category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Clients(models.Model):
     name = models.CharField(max_length=50, null=True, blank=True)
     bio = models.TextField(max_length=5000)
     tag = models.CharField(max_length=50, null=True, blank=True)
     profile_photo = models.CharField(max_length=200, blank=True, null=True)
-    category = models.ForeignKey(Clients_category, on_delete=models.PROTECT, null=True, blank=True)
+    category = models.ForeignKey(
+        Clients_category, on_delete=models.PROTECT, null=True, blank=True)
     twitter = models.CharField(max_length=50, null=True, blank=True)
     facebook = models.CharField(max_length=50, null=True, blank=True)
     instagram = models.CharField(max_length=50, null=True, blank=True)
@@ -24,6 +26,19 @@ class Clients(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Music(models.Model):
+    name = models.CharField(max_length=50)
+    artist = models.ForeignKey(Clients, on_delete=models.PROTECT)
+    image = models.CharField(max_length=50, null=True, blank=True)
+    audio = models.CharField(max_length=50, null=True, blank=True)
+    video = models.CharField(max_length=50, null=True, blank=True)
+    plays = models.IntegerField(default=0)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return "{} - {}".format(self.name, self.artist.name)
 
 
 class About(models.Model):

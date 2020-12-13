@@ -8,6 +8,7 @@ router = DefaultRouter()
 
 router.register('clients', views.ClientsViewSet, 'clients')
 router.register('clientsCategory', views.ClientsCategoryViewSet, 'clientsCategory')
+router.register('music', views.MusicViewSet, 'music')
 router.register('about', views.AboutViewSet, 'about')
 
 urlpatterns = router.urls
